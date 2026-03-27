@@ -1,5 +1,42 @@
 # GPU vs CPU Performance Analysis - Mar 27, 2026
 
+## Experiment Setup
+
+### Dataset
+
+* Source: Kaggle MBAL entity labels + Ethereum token transfers
+
+* Key components:
+
+  * `mbal`: ~4.5 GB
+  * `eth_transfers`: ~221MB-8.24GB
+
+* Time ranges evaluated:
+
+  * 1 day: 417M 
+  * 1 week: 1.69GB
+  * 1 month: 6.36GB
+  * 2 months: 12.87GB
+
+- Cache: CALL gpu_buffer_init('9 GB', '9 GB');
+
+- Script: benchmark/run_benchmark.sh
+
+### Hardware
+
+- GPU: Quadro RTX 6000, 24GB VRAM, sm_75
+
+- CPU: Xeon Gold 6126, 2×12c @ 2.6GHz
+
+### Software
+
+* OS: Linux (x86_64)
+* CUDA toolkit: 13.0
+* Driver: 580.126.20
+* Sirius build commit: 0c198e90a870c129e6a60d7a88304dc115d6a6af
+* Sirius-crypto-demo commit: 886e840916b67307f72a0cbe4730215afdb37791
+
+
 ## Summary
 
 The results show that performance is primarily driven by data representation rather than hardware alone. 
@@ -95,6 +132,3 @@ This reflects a mix of workloads with different characteristics.
 - String-based joins severely limit scalability
 - Large aggregations require out-of-core execution to remain efficient
 - GPU performance is highly workload-dependent
-
-Sirius commit: 0c198e90a870c129e6a60d7a88304dc115d6a6af
-Sirius-crypto-demo commit: 886e840916b67307f72a0cbe4730215afdb37791
