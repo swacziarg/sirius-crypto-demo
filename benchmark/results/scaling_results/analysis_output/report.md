@@ -39,21 +39,13 @@
 
 ## Summary
 
-The results show that performance is primarily driven by data representation rather than hardware alone. 
+The results show that performance is primarily driven by data representation rather than hardware.
 
 Across all scales, the dictionary-encoded version (V3) consistently delivers the strongest performance, achieving stable speedups of ~25–30× with gpu_processing and maintaining ~1.6–2× speedup even with gpu_execution.
 
-Importantly, V3 scales well: latency remains nearly flat as data grows from one day to two months (e.g., ~10–15 ms for gpu_processing), indicating that integer-based joins enable efficient parallel execution and good memory locality on the GPU.
+V3 scales well: latency remains nearly flat as data grows from one day to two months (e.g., ~10–15 ms for gpu_processing), indicating that integer-based joins enable efficient parallel execution and good memory locality on the GPU.
 
 In contrast, the string-based version (V1) exhibits significantly worse scaling behavior. While gpu_processing still provides speedups (up to ~20× at moderate scales), gpu_execution degrades sharply as data size increases, becoming up to ~8–9× slower than CPU at larger scales. This highlights the high cost of string hashing and poor memory efficiency in join-heavy workloads, especially under out-of-core execution.
-
----
-
-## Overall Scaling
-
-**Figure 1 — Global latency scaling across engines**
-
-![Global Scaling](global_scaling.png)
 
 ---
 
@@ -123,6 +115,8 @@ At the global level:
 
 This reflects a mix of workloads with different characteristics.
 
+![Global scaling](global_scaling.png)
+
 ---
 
 ## Key Takeaways
@@ -132,3 +126,4 @@ This reflects a mix of workloads with different characteristics.
 - String-based joins severely limit scalability
 - Large aggregations require out-of-core execution to remain efficient
 - GPU performance is highly workload-dependent
+
